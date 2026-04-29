@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 
 // Import controllers
 const {
@@ -13,6 +15,23 @@ const {
 
 // Import middleware
 const { protect, authorize, optionalAuth } = require('../middleware/authMiddleware');
+
+// Multer for avatar uploads
+const avatarStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `avatar-${req.user?.id ?? 'user'}-${Date.now()}${ext}`);
+  },
+});
+const avatarUpload = multer({
+  storage: avatarStorage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) cb(null, true);
+    else cb(new Error('Only image files are allowed'));
+  },
+});
 
 // ============================================
 // PUBLIC ROUTES (No authentication required)
@@ -165,6 +184,34 @@ router.get('/check', optionalAuth, (req, res) => {
  * @returns { user }
  */
 // router.put('/users/:id/toggle-status', protect, authorize('admin'), toggleUserStatus);
+
+// ============================================
+// AVATAR UPLOAD ROUTE
+// ============================================
+
+/**
+ * @route   POST /api/auth/avatar
+ * @desc    Upload profile picture
+ * @access  Private
+ */
+router.post('/avatar', protect, avatarUpload.single('avatar'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, message: 'No image uploaded' });
+
+    const User = require('../models/User');
+    const avatarUrl = `/uploads/${req.file.filename}`;
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { avatar: avatarUrl },
+      { new: true }
+    ).select('-password');
+
+    res.json({ success: true, avatarUrl, user });
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+});
 
 // ============================================
 // EXPORT ROUTER
