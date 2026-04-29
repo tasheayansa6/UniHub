@@ -68,7 +68,7 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold"
           style={{ background: 'var(--primary)', color: 'var(--primary-foreground)' }}>
-          🎓 UniHub
+          <img src="/logo.png" alt="UniHub" className="w-4 h-4 object-contain" /> UniHub
         </div>
       </div>
 

@@ -20,7 +20,7 @@ export default function About() {
         {/* Hero */}
         <div className="text-center mb-20">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-sm text-white/60 mb-6">
-            🎓 About UniHub
+            <img src="/logo.png" alt="UniHub" className="w-4 h-4 object-contain" /> About UniHub
           </span>
           <h1 className="text-5xl font-bold text-white mb-4">Built by Students,<br />for Students</h1>
           <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">

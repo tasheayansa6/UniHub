@@ -141,9 +141,9 @@ export default function Layout() {
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <button className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-white/[0.06] outline-none">
-                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-xs font-bold"
-                      style={{ background: 'linear-gradient(135deg,#3b82f6,#8b5cf6)', color: '#fff' }}>
-                      🎓
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md overflow-hidden"
+                      style={{ background: 'linear-gradient(135deg,#3b82f6,#8b5cf6)' }}>
+                      <img src="/logo.png" alt="UniHub" className="w-full h-full object-contain p-0.5" />
                     </div>
                     <motion.span
                       variants={labelVariants}

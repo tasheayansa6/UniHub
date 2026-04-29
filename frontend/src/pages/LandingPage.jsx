@@ -45,7 +45,8 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#030303]/90 backdrop-blur-lg">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-lg">
-            <span className="text-2xl">🎓</span> UniHub
+            <img src="/logo.png" alt="UniHub" className="w-8 h-8 object-contain" />
+            UniHub
           </div>
           <div className="hidden md:flex items-center gap-1">
             {[['Features', '#features'], ['Pricing', '#pricing'], ['About', '#about']].map(([label, href]) => (
@@ -81,7 +82,7 @@ export default function LandingPage() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-sm text-white/60 mb-6">
-                🎓 Smart University Collaboration
+                <img src="/logo.png" alt="UniHub" className="w-4 h-4 object-contain" /> Smart University Collaboration
               </span>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight leading-tight">
                 {heroSlides.map((slide, i) => (
@@ -187,7 +188,7 @@ export default function LandingPage() {
       <section id="about" className="max-w-5xl mx-auto px-4 py-24">
         <div className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-sm text-white/60 mb-4">
-            🎓 About UniHub
+            <img src="/logo.png" alt="UniHub" className="w-4 h-4 object-contain" /> About UniHub
           </span>
           <h2 className="text-4xl font-bold text-white mb-4">Built by Students, for Students</h2>
           <p className="text-white/50 max-w-2xl mx-auto leading-relaxed">
@@ -265,7 +266,7 @@ export default function LandingPage() {
             {/* Brand */}
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 font-bold text-xl mb-3">
-                <span className="text-2xl">🎓</span>
+                <img src="/logo.png" alt="UniHub" className="w-7 h-7 object-contain" />
                 <span className="text-white">UniHub</span>
               </div>
               <p className="text-white/40 text-sm leading-relaxed max-w-xs">
