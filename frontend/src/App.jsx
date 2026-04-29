@@ -5,9 +5,15 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Pages
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+// Public pages
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/auth/LoginPage';
+import SignupPage from './pages/auth/SignupPage';
+import Features from './pages/Features';
+import Pricing from './pages/Pricing';
+import About from './pages/About';
+
+// Protected pages
 import Dashboard from './pages/dashboard/Dashboard';
 import Teams from './pages/teams/Teams';
 import Tasks from './pages/tasks/Tasks';
@@ -23,11 +29,15 @@ function App() {
         <Router>
           <Routes>
             {/* Public routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<SignupPage />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/about" element={<About />} />
+
             {/* Protected routes */}
-            <Route path="/" element={
+            <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Layout />
               </ProtectedRoute>
