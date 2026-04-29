@@ -20,7 +20,7 @@ export default function About() {
         {/* Hero */}
         <div className="text-center mb-20">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-sm text-white/60 mb-6">
-            <img src="/logo.png" alt="UniHub" className="w-4 h-4 object-contain" /> About UniHub
+            🎓 About UniHub
           </span>
           <h1 className="text-5xl font-bold text-white mb-4">Built by Students,<br />for Students</h1>
           <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -92,9 +92,9 @@ export default function About() {
             className="px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-rose-500 text-white font-semibold text-sm hover:opacity-90 transition-opacity">
             Join UniHub →
           </button>
-          <a href="https://github.com/Naol724/UniHub" target="_blank" rel="noreferrer"
+          <a href="https://github.com/tasheayansa6/UniHub" target="_blank" rel="noreferrer"
             className="px-8 py-3 rounded-xl border border-white/[0.08] text-white/70 font-semibold text-sm hover:bg-white/[0.05] transition-all flex items-center justify-center gap-2">
-                        <GitBranch className="w-4 h-4" /> View on GitHub
+            <GitBranch className="w-4 h-4" /> View on GitHub
           </a>
         </div>
 
