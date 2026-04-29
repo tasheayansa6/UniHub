@@ -186,6 +186,82 @@ router.get('/check', optionalAuth, (req, res) => {
 // router.put('/users/:id/toggle-status', protect, authorize('admin'), toggleUserStatus);
 
 // ============================================
+// GOOGLE OAUTH ROUTE
+// ============================================
+
+/**
+ * @route   POST /api/auth/google
+ * @desc    Verify Google ID token and sign in / register user
+ * @access  Public
+ * @body    { credential } — Google ID token from frontend
+ */
+router.post('/google', async (req, res) => {
+  try {
+    const { credential } = req.body;
+    if (!credential) {
+      return res.status(400).json({ success: false, message: 'Google credential required' });
+    }
+
+    const { OAuth2Client } = require('google-auth-library');
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const { email, given_name, family_name, picture, sub: googleId } = payload;
+
+    const User = require('../models/User');
+    const jwt = require('jsonwebtoken');
+
+    // Find existing user or create new one
+    let user = await User.findOne({ email: email.toLowerCase() });
+
+    if (!user) {
+      // Register new user via Google
+      user = await User.create({
+        firstName: given_name || 'Google',
+        lastName: family_name || 'User',
+        email: email.toLowerCase(),
+        password: `google_${googleId}_${Date.now()}`, // random unusable password
+        avatar: picture ? picture : '',
+        googleId,
+      });
+    } else if (!user.googleId) {
+      // Link Google to existing account
+      user.googleId = googleId;
+      if (!user.avatar && picture) user.avatar = picture;
+      await user.save({ validateBeforeSave: false });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+    });
+
+    res.json({
+      success: true,
+      message: 'Google sign-in successful',
+      token,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        avatar: user.avatar,
+        bio: user.bio,
+        skills: user.skills,
+      },
+    });
+  } catch (e) {
+    console.error('Google OAuth error:', e.message);
+    res.status(401).json({ success: false, message: 'Invalid Google token' });
+  }
+});
+
+// ============================================
 // AVATAR UPLOAD ROUTE
 // ============================================
 

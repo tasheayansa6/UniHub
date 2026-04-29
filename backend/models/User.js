@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   teams:     [{ teamId: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }, role: { type: String, enum: ['leader', 'member'], default: 'member' } }],
   isActive:  { type: Boolean, default: true },
   lastLogin: { type: Date },
+  googleId:  { type: String, default: '' },
 }, { timestamps: true });
 
 userSchema.virtual('fullName').get(function () {
